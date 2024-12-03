@@ -1,38 +1,70 @@
-/**
- * Author: Lukas Polacek
- * Date: 2009-10-28
- * License: CC0
- * Source:
- * Description: Simple bipartite matching algorithm. Graph $g$ should be a list
- * of neighbors of the left partition, and $btoa$ should be a vector full of
- * -1's of the same size as the right partition. Returns the size of
- * the matching. $btoa[i]$ will be the match for vertex $i$ on the right side,
- * or $-1$ if it's not matched.
- * Time: O(VE)
- * Usage: vi btoa(m, -1); dfsMatching(g, btoa);
- * Status: works
- */
-#pragma once
+struct bipartite {
+    int n, m;
+    vector<vector<int>> g;
+    vector<bool> paired;
+    vector<int> match;
 
-bool find(int j, vector<vi>& g, vi& btoa, vi& vis) {
-	if (btoa[j] == -1) return 1;
-	vis[j] = 1; int di = btoa[j];
-	for (int e : g[di])
-		if (!vis[e] && find(e, g, btoa, vis)) {
-			btoa[e] = di;
-			return 1;
-		}
-	return 0;
-}
-int dfsMatching(vector<vi>& g, vi& btoa) {
-	vi vis;
-	rep(i,0,sz(g)) {
-		vis.assign(sz(btoa), 0);
-		for (int j : g[i])
-			if (find(j, g, btoa, vis)) {
-				btoa[j] = i;
-				break;
-			}
-	}
-	return sz(btoa) - (int)count(all(btoa), -1);
-}
+    bipartite(int n, int m): n(n), m(m), g(n), paired(n), match(m, -1) {}
+    
+    void add(int a, int b) {
+        g[a].push_back(b);
+    }
+
+    vector<size_t> ptr;
+    bool kuhn(int v) {
+        for(size_t &i = ptr[v]; i < g[v].size(); i++) {
+            int &u = match[g[v][i]];
+            if(u == -1 || (dist[u] == dist[v] + 1 && kuhn(u))) {
+                u = v;
+                paired[v] = true;
+                return true;
+            }
+            
+        }
+        return false;
+    }
+
+    vector<int> dist;
+    bool bfs() {
+        dist.assign(n, n);
+        int que[n];
+        int st = 0, fi = 0;
+        for(int v = 0; v < n; v++) {
+            if(!paired[v]) {
+                dist[v] = 0;
+                que[fi++] = v;
+            }
+        }
+        bool rep = false;
+        while(st < fi) {
+            int v = que[st++];
+            for(auto e: g[v]) {
+                int u = match[e];
+                rep |= u == -1;
+                if(u != -1 && dist[v] + 1 < dist[u]) {
+                    dist[u] = dist[v] + 1;
+                    que[fi++] = u;
+                }
+            }
+        }
+        return rep;
+    }
+    
+    auto matching() {
+        while(bfs()) {
+            ptr.assign(n, 0);
+            for(int v = 0; v < n; v++) {
+                if(!paired[v]) {
+                    kuhn(v);
+                }
+            }
+        }
+        vector<pair<int, int>> ans;
+        for(int u = 0; u < m; u++) {
+            if(match[u] != -1) {
+                ans.emplace_back(match[u], u);
+            }
+        }
+        return ans;
+    }
+};

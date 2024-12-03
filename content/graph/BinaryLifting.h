@@ -1,38 +1,171 @@
-/**
- * Author: Johan Sannemo
- * Date: 2015-02-06
- * License: CC0
- * Source: Folklore
- * Description: Calculate power of two jumps in a tree,
- * to support fast upward jumps and LCAs.
- * Assumes the root node points to itself.
- * Time: construction $O(N \log N)$, queries $O(\log N)$
- * Status: Tested at Petrozavodsk, also stress-tested via LCA.cpp
- */
-#pragma once
+class Binary_lift{
+    public:
+        int n,l,timer;
+        vector<vector<int>> adj;
+        vector<vector<int>> up;
+        vector<vector<int>> min_v;
+        vector<int> depth;
+        vector<int> tin;
+        vector<int> tout;
+ 
+        Binary_lift(int n){
+            this->n = n;
+            this->l = log2(n)+1;
+            adj.resize(n);
+            up.resize(n, vector<int>(l, -1));
+            min_v.resize(n, vector<int>(l, inf));
+            depth.resize(n);
+            tin.resize(n);
+            tout.resize(n);
+            timer = 0;
+        }
 
-vector<vi> treeJump(vi& P){
-	int on = 1, d = 1;
-	while(on < sz(P)) on *= 2, d++;
-	vector<vi> jmp(d, P);
-	rep(i,1,d) rep(j,0,sz(P))
-		jmp[i][j] = jmp[i-1][jmp[i-1][j]];
-	return jmp;
-}
+        void set_min_v(vi& a){
+            fr(i,0,n){
+                min_v[i][0] = a[i];
+            }
+        }
+ 
+        void add_edge(int u, int v){
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+ 
+        void dfs(int u, int p, vi& a, int d=0){
+            up[u][0] = p;
+            // if(p!=-1) min_v[u][0] = min(min_v[u][0], a[p]);
+            depth[u] = d;  
+            tin[u] = timer++;
+ 
+            for(int i=1;i<l;i++){
+                if(up[u][i-1] != -1){
+                    up[u][i] = up[up[u][i-1]][i-1];
+                    min_v[u][i] = min(min_v[u][i-1], min_v[up[u][i-1]][i-1]);
+                }
+            }
+            // cout<<"u: "<<u<<'\n';
+            // // print min_v
+            // for(int i=0;i<l;i++){
+            //     cout<<min_v[u][i]<<' ';
+            // }
+            // cout<<'\n';
 
-int jmp(vector<vi>& tbl, int nod, int steps){
-	rep(i,0,sz(tbl))
-		if(steps&(1<<i)) nod = tbl[i][nod];
-	return nod;
-}
+            for(int v: adj[u]){
+                if(v != p){
+                    dfs(v, u,a,d+1);
+                }
+            }
+            tout[u] = timer;
+        }
+ 
+        int lift(int u, int k){
+            for(int i=l-1;i>=0;i--){
+                if(k >= (1<<i)){
+                    u = up[u][i];
+                    k -= (1<<i);
+                }
+            }
+            return u;
+        }
+ 
+        int lca(int u, int v){
+            if(depth[u] < depth[v]){
+                swap(u,v);
+            }
+            u = lift(u, depth[u]-depth[v]);
+            if(u == v){
+                return u;
+            }
+ 
+            for(int i=l-1;i>=0;i--){
+                if(depth[u]<(1<<i))
+                    continue;
+                if(up[u][i] != up[v][i]){
+                    u = up[u][i];
+                    v = up[v][i];
+                }
+            }
+            return up[u][0];
+ 
+        }
 
-int lca(vector<vi>& tbl, vi& depth, int a, int b) {
-	if (depth[a] < depth[b]) swap(a, b);
-	a = jmp(tbl, a, depth[a] - depth[b]);
-	if (a == b) return a;
-	for (int i = sz(tbl); i--;) {
-		int c = tbl[i][a], d = tbl[i][b];
-		if (c != d) a = c, b = d;
-	}
-	return tbl[0][a];
-}
+        int get_kth_node_on_path(int u, int v, int k){
+            int lca = this->lca(u,v);
+            int dist = this->depth[u] + this->depth[v] - 2*this->depth[lca];
+            if(k > dist){
+                return -1;
+            }
+            if(k == 0){
+                return u;
+            }
+            if(k == dist){
+                return v;
+            }
+            if(this->depth[u] - this->depth[lca] >= k){
+                return this->lift(u, k);
+            }
+            return this->lift(v, dist-k);
+        }
+
+        int get_min_on_path(int u, int v){
+            int lca = this->lca(u,v);
+            int ans = inf;
+            for(int i=l-1;i>=0;i--){
+                if(this->depth[u] - (1<<i) >= this->depth[lca]){
+                    ans = min(ans, this->min_v[u][i]);
+                    u = this->up[u][i];
+                }
+            }
+            for(int i=l-1;i>=0;i--){
+                if(this->depth[v] - (1<<i) >= this->depth[lca]){
+                    ans = min(ans, this->min_v[v][i]);
+                    v = this->up[v][i];
+                }
+            }
+            ans = min(ans, this->min_v[u][0]);
+            ans = min(ans, this->min_v[v][0]);
+            return ans;
+        }
+
+        // returns the node number, we move from u to v
+        int first_node_less_equal_k_on_path(int u, int v, int k, vi& a){
+            if(a[u] <= k) return u;
+            int lca = this->lca(u,v);
+            // cout<<u<<' '<<v<<' '<<lca<<'\n';
+            for(int i=l-1;i>=0;i--){
+                if(this->depth[u] - (1<<i) >= this->depth[lca]){
+                    if(this->min_v[u][i] <= k) continue;
+                    u = this->up[u][i];
+                    // cout<<u<<' '<<v<<' '<<lca<<' '<<i<<' '<<this->min_v[u][i]<<'\n';
+                }
+            }
+            // cout<<u<<' '<<v<<' '<<lca<<'\n';
+            int j = -1;
+            if(u!=lca) return u;
+            if(a[u] <= k) return u;
+            for(int i=l-1;i>=0;i--){
+                if(this->depth[v] - (1<<i) >= this->depth[lca]){
+                    int height = this->depth[v] - this->depth[lca] - (1<<i);
+                    int node = this->lift(v, height);
+                    j=i;
+                    if(this->min_v[node][i] <= k) v = node;
+                    else lca = up[v][i];
+                    break;
+                }
+            }
+            // cout<<u<<' '<<v<<' '<<lca<<'\n';
+            for(int i=j;i>0;i--){
+                if(this->depth[v] - (1<<i) >= this->depth[lca]){
+                    int node = this->up[v][i-1];
+                    if(this->min_v[node][i-1] <= k) v = node;
+                    else lca = node;
+                }
+            }
+            // assert(v==lca);
+            return v;
+        }
+
+        int get_dist(int u, int v){
+            return this->depth[u] + this->depth[v] - 2*this->depth[this->lca(u,v)];
+        }
+};
