@@ -1,34 +1,26 @@
-/**
- * Author: Ulf Lundstrom
- * Date: 2009-08-03
- * License: CC0
- * Source: My head
- * Description: Basic operations on square matrices.
- * Usage: Matrix<int, 3> A;
- *  A.d = {{{{1,2,3}}, {{4,5,6}}, {{7,8,9}}}};
- *  vector<int> vec = {1,2,3};
- *  vec = (A^N) * vec;
- * Status: tested
- */
-#pragma once
-
-template<class T, int N> struct Matrix {
+template<class T> struct Matrix {
 	typedef Matrix M;
-	array<array<T, N>, N> d{};
+	vector<vector<T>> d;
+    Matrix(int n){
+        d.resize(n,vector<T>(n,0));
+    };
 	M operator*(const M& m) const {
-		M a;
+		M a(m.d.size());
+        int N = m.d.size();
 		rep(i,0,N) rep(j,0,N)
-			rep(k,0,N) a.d[i][j] += d[i][k]*m.d[k][j];
+			rep(k,0,N) {a.d[i][j] += (d[i][k]*m.d[k][j])%mod1;a.d[i][j]%=mod1;}
 		return a;
 	}
 	vector<T> operator*(const vector<T>& vec) const {
+        int N = this->d.size();
 		vector<T> ret(N);
-		rep(i,0,N) rep(j,0,N) ret[i] += d[i][j] * vec[j];
+		rep(i,0,N) rep(j,0,N) {ret[i] += (d[i][j] * vec[j])%mod1;ret[i]%=mod1;}
 		return ret;
 	}
 	M operator^(ll p) const {
 		assert(p >= 0);
-		M a, b(*this);
+		M a(this->d.size()), b(*this);
+        int N = this->d.size();
 		rep(i,0,N) a.d[i][i] = 1;
 		while (p) {
 			if (p&1) a = a*b;
