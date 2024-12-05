@@ -11,24 +11,37 @@
  */
 #pragma once
 
-struct RollbackUF {
-	vi e; vector<pii> st;
-	RollbackUF(int n) : e(n, -1) {}
-	int size(int x) { return -e[find(x)]; }
-	int find(int x) { return e[x] < 0 ? x : find(e[x]); }
-	int time() { return sz(st); }
-	void rollback(int t) {
-		for (int i = time(); i --> t;)
-			e[st[i].first] = st[i].second;
-		st.resize(t);
+class DSU {
+  private:
+	vector<int> p, sz;
+	// stores previous unites
+	vector<pair<int &, int>> history;
+
+  public:
+	DSU(int n) : p(n), sz(n, 1) { iota(p.begin(), p.end(), 0); }
+
+	int get(int x) { return x == p[x] ? x : get(p[x]); }
+
+	void unite(int a, int b) {
+		a = get(a);
+		b = get(b);
+		if (a == b) { return; }
+		if (sz[a] < sz[b]) { swap(a, b); }
+
+		// save this unite operation
+		history.push_back({sz[a], sz[a]});
+		history.push_back({p[b], p[b]});
+
+		p[b] = a;
+		sz[a] += sz[b];
 	}
-	bool join(int a, int b) {
-		a = find(a), b = find(b);
-		if (a == b) return false;
-		if (e[a] > e[b]) swap(a, b);
-		st.push_back({a, e[a]});
-		st.push_back({b, e[b]});
-		e[a] += e[b]; e[b] = a;
-		return true;
+
+	int snapshot() { return history.size(); }
+
+	void rollback(int until) {
+		while (snapshot() > until) {
+			history.back().first = history.back().second;
+			history.pop_back();
+		}
 	}
 };
