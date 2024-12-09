@@ -1,3 +1,8 @@
+/**
+ * Author: AlooParatha
+ * Description: BinaryLifting.h
+ */
+
 class Binary_lift{
     public:
         int n,l,timer;
