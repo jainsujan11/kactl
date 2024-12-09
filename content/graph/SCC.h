@@ -1,3 +1,8 @@
+/**
+ * Author: AlooParatha
+ * Description: SCC.h
+ */
+
 vector<bool> visited; // keeps track of which vertices are already visited
 
 // runs depth first search starting at vertex v.

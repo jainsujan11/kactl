@@ -1,4 +1,6 @@
 /**
+ * Author: Aloo Paratha
+ * Description: Bridges and Articulation Points in a graph
  * calculate low[v] for every vertex
  * low[v] = min(tin[v],
  * tin[to] such that (v,to) is a backedge, note that to is not parent of v,

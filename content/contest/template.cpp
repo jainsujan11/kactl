@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+// #pragma GCC optimize("O3,unroll-loops")
+// #pragma GCC target("avx2,bmi,bmi2,popcnt,lzcnt")
 using namespace std;
 #define fr(i, a, b) for(int i = a; i < (b); ++i)
 #define rev(i, a, b) for (ll i = a; i >= b; i--)
@@ -6,6 +8,7 @@ using namespace std;
 #define all(x) begin(x), end(x)
 #define sz(x) (int)(x).size()
 using ll = long long;
+#define int long long
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 const ll mod1 = 1e9+7, mod2 = 998244353;
