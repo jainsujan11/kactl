@@ -1,3 +1,8 @@
+/**
+ * Author: AlooParatha
+ * Description: 2sat.h
+ */
+
 class TwoSAT {
 private:
     int n;

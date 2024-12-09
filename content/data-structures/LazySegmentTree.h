@@ -1,3 +1,8 @@
+/**
+ * Author: AlooParatha
+ * Description: LazySegmentTree.h
+ */
+
 class LazySegmentTree {
 private:
     vector<int> t, lazy;

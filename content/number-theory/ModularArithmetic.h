@@ -1,3 +1,8 @@
+/**
+ * Author: AlooParatha
+ * Description: ModularArithmetic.h
+ */
+
 template <const int64_t MOD = mod1>
 struct modint {
     int64_t value;
