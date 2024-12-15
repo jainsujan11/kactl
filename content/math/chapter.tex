@@ -174,3 +174,47 @@ $\lim_{k\rightarrow\infty}\mathbf{P}^k = \mathbf{1}\pi$.
 A Markov chain is an A-chain if the states can be partitioned into two sets $\mathbf{A}$ and $\mathbf{G}$, such that all states in $\mathbf{A}$ are absorbing ($p_{ii}=1$), and all states in $\mathbf{G}$ leads to an absorbing state in $\mathbf{A}$.
 The probability for absorption in state $i\in\mathbf{A}$, when the initial state is $j$, is $a_{ij} = p_{ij}+\sum_{k\in\mathbf{G}} a_{ik}p_{kj}$.
 The expected time until absorption, when the initial state is $i$, is $t_i = 1+\sum_{k\in\mathbf{G}}p_{ki}t_k$.
+
+\section*{Gambler's Ruin Problem}
+
+A gambler starts with an initial fortune of \( i \) dollars. On each game, the gambler wins \$1 with probability \( p \) or loses \$1 with probability \( q = 1 - p \), where \( 0 \leq p \leq 1 \). The gambler will stop playing if either \( N \) dollars are accumulated or all money has been lost. 
+
+The natural question is: what is the probability that the gambler will end up with \( N \) dollars? 
+
+\[
+P_i = 
+\begin{cases} 
+\frac{1 - \left( \frac{q}{p} \right)^i}{1 - \left( \frac{q}{p} \right)^N} & \text{if } p \neq q, \\[10pt]
+\frac{i}{N} & \text{if } p = q = 0.5.
+\end{cases}
+\]
+
+The expected number of moves to stop is given by:
+
+\[
+E(\text{moves}) = i (N - i).
+\]
+
+\section*{General Random Walk}
+
+Let \( a > 0 \) and \( b > 0 \) be integers, and let \( R_n \) denote a simple random walk with \( R_0 = 0 \). Let:
+
+\[
+p(a) = P(R_n \text{ hits level } a \text{ before hitting level } -b).
+\]
+
+By letting \( a = N - i \) and \( b = i \) (so that \( N = a + b \)), we can imagine a gambler who starts with \( i = b \) and wishes to reach \( N = a + b \) before going broke. So we can compute \( p(a) \) by casting the problem into the framework of the gambler's ruin problem:
+
+\[
+p(a) = P_i \quad \text{where } N = a + b, \, i = b.
+\]
+
+The following equation holds:
+
+\[
+p(a) =
+\begin{cases}
+\frac{1 - \left( \frac{q}{p} \right)^b}{1 - \left( \frac{q}{p} \right)^{a+b}} & \text{if } p \neq q, \\[12pt]
+\frac{b}{a+b} & \text{if } p = q = 0.5.
+\end{cases}
+\]
