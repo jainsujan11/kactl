@@ -12,53 +12,35 @@ class Binary_lift{
         vector<int> depth;
         vector<int> tin;
         vector<int> tout;
- 
         Binary_lift(int n){
             this->n = n;
             this->l = log2(n)+1;
             adj.resize(n);
             up.resize(n, vector<int>(l, -1));
             min_v.resize(n, vector<int>(l, inf));
-            depth.resize(n);
-            tin.resize(n);
-            tout.resize(n);
+            depth.resize(n);tin.resize(n);tout.resize(n);
             timer = 0;
         }
 
         void set_min_v(vi& a){
             fr(i,0,n){
-                min_v[i][0] = a[i];
-            }
+                min_v[i][0] = a[i];}
         }
- 
         void add_edge(int u, int v){
-            adj[u].push_back(v);
-            adj[v].push_back(u);
-        }
- 
+            adj[u].push_back(v);adj[v].push_back(u);}
         void dfs(int u, int p, vi& a, int d=0){
             up[u][0] = p;
-            // if(p!=-1) min_v[u][0] = min(min_v[u][0], a[p]);
             depth[u] = d;  
             tin[u] = timer++;
- 
             for(int i=1;i<l;i++){
                 if(up[u][i-1] != -1){
                     up[u][i] = up[up[u][i-1]][i-1];
                     min_v[u][i] = min(min_v[u][i-1], min_v[up[u][i-1]][i-1]);
                 }
             }
-            // cout<<"u: "<<u<<'\n';
-            // // print min_v
-            // for(int i=0;i<l;i++){
-            //     cout<<min_v[u][i]<<' ';
-            // }
-            // cout<<'\n';
-
             for(int v: adj[u]){
                 if(v != p){
-                    dfs(v, u,a,d+1);
-                }
+                    dfs(v, u,a,d+1);}
             }
             tout[u] = timer;
         }
@@ -91,9 +73,7 @@ class Binary_lift{
                 }
             }
             return up[u][0];
- 
         }
-
         int get_kth_node_on_path(int u, int v, int k){
             int lca = this->lca(u,v);
             int dist = this->depth[u] + this->depth[v] - 2*this->depth[lca];
@@ -111,7 +91,6 @@ class Binary_lift{
             }
             return this->lift(v, dist-k);
         }
-
         int get_min_on_path(int u, int v){
             int lca = this->lca(u,v);
             int ans = inf;
@@ -131,20 +110,15 @@ class Binary_lift{
             ans = min(ans, this->min_v[v][0]);
             return ans;
         }
-
-        // returns the node number, we move from u to v
         int first_node_less_equal_k_on_path(int u, int v, int k, vi& a){
             if(a[u] <= k) return u;
             int lca = this->lca(u,v);
-            // cout<<u<<' '<<v<<' '<<lca<<'\n';
             for(int i=l-1;i>=0;i--){
                 if(this->depth[u] - (1<<i) >= this->depth[lca]){
                     if(this->min_v[u][i] <= k) continue;
                     u = this->up[u][i];
-                    // cout<<u<<' '<<v<<' '<<lca<<' '<<i<<' '<<this->min_v[u][i]<<'\n';
                 }
             }
-            // cout<<u<<' '<<v<<' '<<lca<<'\n';
             int j = -1;
             if(u!=lca) return u;
             if(a[u] <= k) return u;
@@ -158,7 +132,6 @@ class Binary_lift{
                     break;
                 }
             }
-            // cout<<u<<' '<<v<<' '<<lca<<'\n';
             for(int i=j;i>0;i--){
                 if(this->depth[v] - (1<<i) >= this->depth[lca]){
                     int node = this->up[v][i-1];
@@ -166,10 +139,8 @@ class Binary_lift{
                     else lca = node;
                 }
             }
-            // assert(v==lca);
             return v;
         }
-
         int get_dist(int u, int v){
             return this->depth[u] + this->depth[v] - 2*this->depth[this->lca(u,v)];
         }
