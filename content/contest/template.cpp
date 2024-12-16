@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 // #pragma GCC optimize("O3,unroll-loops")
-// #pragma GCC target("avx2,bmi,bmi2,popcnt,lzcnt")
 using namespace std;
 #define fr(i, a, b) for(int i = a; i < (b); ++i)
 #define rev(i, a, b) for (ll i = a; i >= b; i--)
@@ -24,7 +23,6 @@ int32_t main()
     #ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
-        freopen("Error.txt", "w", stderr);
     #endif 
     int t=1;cin >> t;
     while(t--) solve();
