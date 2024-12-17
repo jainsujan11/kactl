@@ -2,6 +2,7 @@
  * Author: AlooParatha
  * Description: Seg_tree.h
  */
+#pragma once
 
 struct node{
     int mini;int ct;
@@ -23,8 +24,7 @@ node merge(node& a,node& b)
     else if(a.mini<b.mini) return a;
     else return b;
 }
-// tree is 1-indexed // arr is global
-void build(int idx,int low,int high) // call(build(1,0,n-1))
+void build(int idx,int low,int high) 
 {
     if(low==high)
     {
@@ -36,7 +36,7 @@ void build(int idx,int low,int high) // call(build(1,0,n-1))
     build(2*idx+1,mid+1,high);
     segment[idx] = merge(segment[2*idx],segment[2*idx+1]);
 }
-node query(int idx,int low,int high,int l,int r) // call query(1,0,n-1,l,r)
+node query(int idx,int low,int high,int l,int r)
 {
     if(l<=low&&high<=r) return segment[idx]; 
     if (high<l||low>r) return node(); 

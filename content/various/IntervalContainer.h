@@ -1,34 +1,41 @@
 /**
- * Author: Simon Lindholm
- * License: CC0
- * Description: Add and remove intervals from a set of disjoint intervals.
- * Will merge the added interval with any overlapping intervals in the set when adding.
- * Intervals are [inclusive, exclusive).
- * Time: O(\log N)
- * Status: stress-tested
+ * Author: Aloo Paratha
+ * Description: IntervalContainer.h
  */
 #pragma once
 
-set<pii>::iterator addInterval(set<pii>& is, int L, int R) {
-	if (L == R) return is.end();
-	auto it = is.lower_bound({L, R}), before = it;
-	while (it != is.end() && it->first <= R) {
-		R = max(R, it->second);
-		before = it = is.erase(it);
-	}
-	if (it != is.begin() && (--it)->second >= L) {
-		L = min(L, it->first);
-		R = max(R, it->second);
-		is.erase(it);
-	}
-	return is.insert(before, {L,R});
-}
-
-void removeInterval(set<pii>& is, int L, int R) {
-	if (L == R) return;
-	auto it = addInterval(is, L, R);
-	auto r2 = it->second;
-	if (it->first == L) is.erase(it);
-	else (int&)it->second = L;
-	if (R != r2) is.emplace(R, r2);
-}
+struct non_overlapping_segment{
+    set<pair<int,int>> seg;
+    non_overlapping_segment()
+    {
+        seg.clear();
+    }
+    int insert(int lo, int hi)
+    {
+        auto it = seg.upper_bound({lo,0});
+        int added = 0;
+        if(it != seg.begin())
+        {
+            --it;
+            if((*it).ss >= lo)
+            {
+                added -= (*it).ss - (*it).ff + 1;
+                lo = (*it).ff;
+                hi = max(hi,(*it).ss);
+                seg.erase(it);
+            }
+        }
+        while(true)
+        {
+            auto it = seg.lower_bound({lo,0});
+            if(it == seg.end()) break;
+            if((*it).ff > hi) break;
+            hi = max(hi,(*it).ss);
+            added -= (*it).ss - (*it).ff + 1;
+            seg.erase(it);
+        }
+        added += hi - lo + 1;
+        seg.insert({lo,hi});
+        return added;
+    }
+};
