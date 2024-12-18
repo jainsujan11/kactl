@@ -1,12 +1,13 @@
 /**
  * Author: AlooParatha
- * Description: Seg_tree.h
+ * Description: Segment tree implementation for range minimum query with count
  */
 #pragma once
 
-struct node{
-    int mini;int ct;
-    node(int m=1e9,int c=0){
+struct node {
+    int mini;
+    int ct;
+    node(int m=1e9, int c=0) {
         mini = m;
         ct = c;
     }
