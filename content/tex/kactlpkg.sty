@@ -5,8 +5,9 @@
 \usepackage[utf8]{inputenc}             % Encoding UTF-8
 \usepackage{listings}                   % Source code listings
 \usepackage{framed}                     % Source code listings
-\usepackage[a4paper,landscape,hmargin={0.5cm,0.5cm},vmargin={1.0cm,0.4cm}]{geometry}
+\usepackage[a4paper,landscape,hmargin={2.54cm,2.54cm},vmargin={2.54cm,2.54cm}]{geometry}
 \usepackage{multicol}                   % Split page in multiple columns
+\usepackage{mathptmx}
 \usepackage{fancyhdr}                   % Fancy headers
 \usepackage{amsbsy, amssymb, amsmath}   % Enable math symbols
 \usepackage{tocloft}                    % Custom Table of Contents
@@ -57,9 +58,9 @@
 
 \renewcommand{\maketitle}[2]{
 	\begin{center}
-		{\Huge \@title}\\
-		{\huge \@subtitle{} version #2}\\[0.1cm]
-		{\Huge \textsc{#1}}
+		{\normalsize \@title}\\
+		{\normalsize \@subtitle{} version #2}\\[0.1cm]
+		{\normalsize \textsc{#1}}
 	\end{center}
 }
 
@@ -225,11 +226,11 @@
 		{\fontsize{25}{30}\selectfont \@unilong\\}
 		{\fontsize{60}{60}\selectfont \@teamname\\}
 		\vspace{0.5cm}
-		{\huge \@teammembers\\}
+		{\normalsize \@teammembers\\}
 		\vfill
 		{\fontsize{21}{25}\selectfont \@contestname}\\
 		\vspace{0.5cm}
-		{\huge \@contestdate}\\
+		{\normalsize \@contestdate}\\
 		\vspace{1cm}
 	\end{center}
 	\clearpage
