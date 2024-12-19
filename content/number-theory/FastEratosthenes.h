@@ -16,7 +16,6 @@
  * Se https://github.com/kth-competitive-programming/kactl/pull/166#discussion_r408354338
  */
 #pragma once
-
 int prime[1000000+1];
 const int range = 1e6;
 // Seive of Eratosthenes
@@ -91,7 +90,6 @@ vi divisor(int x)
     }
     return ans;
 }
-
 
 // Code for finding factors of number x;
 vector<pi> factor(int x)

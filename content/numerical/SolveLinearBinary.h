@@ -9,9 +9,7 @@
  * Status: bruteforce-tested for n, m <= 4
  */
 #pragma once
-
 typedef bitset<1000> bs;
-
 int solveLinear(vector<bs>& A, vi& b, bs& x, int m) {
 	int n = sz(A), rank = 0, br;
 	assert(m <= sz(x));
@@ -35,7 +33,6 @@ int solveLinear(vector<bs>& A, vi& b, bs& x, int m) {
 		}
 		rank++;
 	}
-
 	x = bs();
 	for (int i = rank; i--;) {
 		if (!b[i]) continue;

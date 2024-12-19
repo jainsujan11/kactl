@@ -13,7 +13,6 @@
  * Status: stress-tested by MinimumVertexCover, and tested on oldkattis.adkbipmatch and SPOJ:MATCHING
  */
 #pragma once
-
 bool dfs(int a, int L, vector<vi>& g, vi& btoa, vi& A, vi& B) {
 	if (A[a] != L) return 0;
 	A[a] = -1;
@@ -24,7 +23,6 @@ bool dfs(int a, int L, vector<vi>& g, vi& btoa, vi& A, vi& B) {
 	}
 	return 0;
 }
-
 int hopcroftKarp(vector<vi>& g, vi& btoa) {
 	int res = 0;
 	vi A(g.size()), B(btoa.size()), cur, next;

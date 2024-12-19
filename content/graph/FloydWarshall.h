@@ -11,7 +11,6 @@
  * Status: slightly tested
  */
 #pragma once
-
 const ll inf = 1LL << 62;
 void floydWarshall(vector<vector<ll>>& m) {
 	int n = sz(m);

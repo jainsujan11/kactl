@@ -11,7 +11,6 @@
  * Status: Tested on Kattis
  */
 #pragma once
-
 template<class T>
 struct SubMatrix {
 	vector<vector<T>> p;

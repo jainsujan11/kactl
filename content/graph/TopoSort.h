@@ -10,7 +10,6 @@
  * Status: stress-tested
  */
 #pragma once
-
 vi topoSort(const vector<vi>& gr) {
 	vi indeg(sz(gr)), q;
 	for (auto& li : gr) for (int x : li) indeg[x]++;

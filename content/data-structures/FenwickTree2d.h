@@ -9,9 +9,7 @@
  * Status: stress-tested
  */
 #pragma once
-
 #include "FenwickTree.h"
-
 struct FT2 {
 	vector<vi> ys; vector<FT> ft;
 	FT2(int limx) : ys(limx) {}

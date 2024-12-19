@@ -2,7 +2,6 @@
  * Author: AlooParatha
  * Description: ModularArithmetic.h
  */
-
 template <const int64_t MOD = mod1>
 struct modint {
     int64_t value;
@@ -28,7 +27,6 @@ struct modint {
     friend ostream & operator << (ostream & out, modint<MOD> n) { return out << n.value; }
 }; 
 using mint = modint<>;
-
 template<const int64_t mod = mod1>
 struct combi{
   int n; vector<mint> facts, finvs, invs;

@@ -11,9 +11,7 @@
  * Status: tested
  */
 #pragma once
-
 #include "Point.h"
-
 template<class P>
 vector<pair<P, P>> tangents(P c1, double r1, P c2, double r2) {
 	P d = c2 - c1;

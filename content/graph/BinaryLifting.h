@@ -2,7 +2,6 @@
  * Author: AlooParatha
  * Description: BinaryLifting.h
  */
-
 class Binary_lift{
     public:
         int n,l,timer;
@@ -21,7 +20,6 @@ class Binary_lift{
             depth.resize(n);tin.resize(n);tout.resize(n);
             timer = 0;
         }
-
         void set_min_v(vi& a){
             fr(i,0,n){
                 min_v[i][0] = a[i];}

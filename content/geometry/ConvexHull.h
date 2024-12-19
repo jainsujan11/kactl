@@ -17,7 +17,6 @@ Points on the edge of the hull between two other points are not considered part 
  * Status: stress-tested, tested with kattis:convexhull
 */
 #pragma once
-
 template <class T> int sgn(T x) { return (x > 0) - (x < 0); }
 template<class T>
 struct Point {
@@ -32,7 +31,6 @@ struct Point {
 	friend ostream& operator<<(ostream& os, P p) {
 		return os << "(" << p.x << "," << p.y << ")"; }
 };
-
 typedef Point<ll> P;
 vector<P> convexHull(vector<P> pts) {
 	if (sz(pts) <= 1) return pts;

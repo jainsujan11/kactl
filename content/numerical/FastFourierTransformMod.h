@@ -12,9 +12,7 @@
  * here (https://github.com/simonlindholm/fft-precision/blob/master/fft-precision.md)
  */
 #pragma once
-
 #include "FastFourierTransform.h"
-
 typedef vector<ll> vl;
 template<int M> vl convMod(const vl &a, const vl &b) {
 	if (a.empty() || b.empty()) return {};

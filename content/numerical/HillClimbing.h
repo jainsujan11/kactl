@@ -7,9 +7,7 @@
  * Status: used with great success
  */
 #pragma once
-
 typedef array<double, 2> P;
-
 template<class F> pair<double, P> hillClimb(P start, F f) {
 	pair<double, P> cur(f(start), start);
 	for (double jmp = 1e9; jmp > 1e-20; jmp /= 2) {

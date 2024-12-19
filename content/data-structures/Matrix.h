@@ -2,7 +2,6 @@
  * Author: AlooParatha
  * Description: Matrix.h
  */
-
 template<class T> struct Matrix {
 	typedef Matrix M;
 	vector<vector<T>> d;

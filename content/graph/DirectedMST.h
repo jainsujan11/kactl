@@ -9,7 +9,6 @@ public:
 	{
 		priority_queue<pair<int, int>,
 		               vector<pair<int, int> >, greater<pair<int, int>>> pq;
-
 		vector<int> vis(V, 0);
 		pq.push({0, 0});
 		int sum = 0;
@@ -18,7 +17,6 @@ public:
 			pq.pop();
 			int node = it.second;
 			int wt = it.first;
-
 			if (vis[node] == 1) continue;
 			vis[node] = 1;
 			sum += wt;

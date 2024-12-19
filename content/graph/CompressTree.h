@@ -11,9 +11,7 @@
  * Status: Tested at CodeForces
  */
 #pragma once
-
 #include "LCA.h"
-
 typedef vector<pair<int, int>> vpi;
 vpi compressTree(LCA& lca, const vi& subset) {
 	static vi rev; rev.resize(sz(lca.time));

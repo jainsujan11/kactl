@@ -8,7 +8,6 @@
  * Status: Stress-tested together with GomoryHu
  */
 #pragma once
-
 pair<int, vi> globalMinCut(vector<vi> mat) {
 	pair<int, vi> best = {INT_MAX, {}};
 	int n = sz(mat);

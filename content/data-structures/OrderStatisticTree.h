@@ -9,15 +9,12 @@
  * Time: O(\log N)
  */
 #pragma once
-
 #include<ext/pb_ds/assoc_container.hpp>
 #include<ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
-
 template<class T>
 using Tree = tree<T, null_type, less<T>, rb_tree_tag,
     tree_order_statistics_node_update>;
-
 void example() {
 	Tree<int> t, t2; t.insert(8);
 	auto it = t.insert(10).first;

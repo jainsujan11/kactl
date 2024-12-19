@@ -13,9 +13,7 @@
  * Status: Tested on kattis:cordonbleu, stress-tested
  */
 #pragma once
-
 typedef long double ld;
-
 vector<int> hungarian(const vector<vector<ld>>& A, int n) {
     // Labels for workers (u) and jobs (v)
     vector<ld> u(n + 1, 0.0), v(n + 1, 0.0);

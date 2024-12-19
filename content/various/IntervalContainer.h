@@ -3,7 +3,6 @@
  * Description: IntervalContainer.h
  */
 #pragma once
-
 struct non_overlapping_segment{
     set<pair<int,int>> seg;
     non_overlapping_segment()

@@ -18,10 +18,8 @@
  * Status: tested but not extensively
  */
 #pragma once
-
 #include "Point.h"
 #include "lineIntersection.h"
-
 typedef Point<double> P;
 vector<P> polygonCut(const vector<P>& poly, P s, P e) {
 	vector<P> res;

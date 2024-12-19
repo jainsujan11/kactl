@@ -31,7 +31,6 @@
  * a simple gcd(a^n,m) == gcd(b,m) check.
  */
 #pragma once
-
 ll modLog(ll a, ll b, ll m) {
 	ll n = (ll) sqrt(m) + 1, e = 1, f = 1, j = 1;
 	unordered_map<ll, ll> A;

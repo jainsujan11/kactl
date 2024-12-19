@@ -6,7 +6,6 @@
  * Status: Tested on kattis:longincsubseq, stress-tested
  */
 #pragma once
-
 template<class I> vi lis(const vector<I>& S) {
 	if (S.empty()) return {};
 	vi prev(sz(S));

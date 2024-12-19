@@ -7,9 +7,7 @@
  * Status: tested on kattis:equationsolverplus, stress-tested
  */
 #pragma once
-
 #include "SolveLinear.h"
-
 rep(j,0,n) if (j != i) // instead of rep(j,i+1,n)
 // ... then at the end:
 x.assign(m, undefined);

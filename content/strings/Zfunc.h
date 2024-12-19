@@ -7,7 +7,6 @@
  * Status: stress-tested
  */
 #pragma once
-
 vi Z(const string& S) {
 	vi z(sz(S));
 	int l = -1, r = -1;

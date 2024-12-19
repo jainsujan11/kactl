@@ -8,9 +8,7 @@
  * Status: Stress-tested and tested on kattis:polygonarea
  */
 #pragma once
-
 #include "Point.h"
-
 template<class T>
 T polygonArea2(vector<Point<T>>& v) {
 	T a = v.back().cross(v[0]);

@@ -9,7 +9,6 @@
  * Status: Stress-tested
  */
 #pragma once
-
 struct FT {
 	vector<ll> s;
 	FT(int n) : s(n) {}

@@ -18,22 +18,16 @@
  * here (https://github.com/simonlindholm/fft-precision/blob/master/fft-precision.md)
  */
 #pragma once
-
 typedef long double ld;
-
 #define mp make_pair
 #define eprintf(...) fprintf(stderr, __VA_ARGS__)
 #define sz(x) ((int)(x).size())
 #define TASKNAME "text"
-
 const ld pi = acos((ld)-1);
-
 namespace FFT {
     struct com {
         ld x, y;
-
         com(ld _x = 0, ld _y = 0) : x(_x), y(_y) {}
-
         inline com operator+(const com &c) const {
             return com(x + c.x, y + c.y);
         }
@@ -47,31 +41,26 @@ namespace FFT {
             return com(x, -y);
         }
     };
-
     const static int maxk = 21, maxn = (1 << maxk) + 1;
     com ws[maxn];
     int dp[maxn];
     com rs[maxn];
     int n, k;
     int lastk = -1;
-
     void fft(com *a, bool torev = 0) {
         if (lastk != k) {
             lastk = k;
             dp[0] = 0;
-
             for (int i = 1, g = -1; i < n; ++i) {
                 if (!(i & (i - 1))) {
                     ++g;
                 }
                 dp[i] = dp[i ^ (1 << g)] ^ (1 << (k - 1 - g));
             }
-
             ws[1] = com(1, 0);
             for (int two = 0; two < k - 1; ++two) {
                 ld alf = pi / n * (1 << (k - 1 - two));
                 com cur = com(cos(alf), sin(alf));
-
                 int p2 = (1 << two), p3 = p2 * 2;
                 for (int j = p2; j < p3; ++j) {
                     ws[j * 2 + 1] = (ws[j * 2] = ws[j]) * cur;
@@ -99,7 +88,6 @@ namespace FFT {
             }
         }
     }
-
     com a[maxn];
     int mult(int na, int *_a, int nb, int *_b, long long *ans) {
         if (!na || !nb) {

@@ -7,7 +7,6 @@
  * edges such that the path from any leaf to the root contains at most log(n)
  * light edges. fr(i, 0, n) b[pos[i]] = a[i];
  */
-
 class HLD{
 public:
     vector<int> parent, depth, heavy, head, pos;

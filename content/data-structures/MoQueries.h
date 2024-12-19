@@ -10,7 +10,6 @@
  * Status: stress-tested
  */
 #pragma once
-
 class mo_algorithm
 {
 public:
@@ -19,7 +18,6 @@ public:
     vector<pair<int, pii>> queries;
     vector<int> answers;
     int answer, val;
-
     mo_algorithm(int n, int q, vector<int> a, vector<pair<int, int>> queries)
     {
         this->n = n;
@@ -31,10 +29,8 @@ public:
         answers.resize(q);
         val = 0;
     }
-
     inline void add(int x) {val--;} // Try your best to keep this O(1) since n*root(n)*log(n) is too slow
     inline void remove(int x) {val--;}
-
     void process()
     {
         sort(queries.begin(), queries.end(), [this](pair<int, pii> x, pair<int, pii> y) {

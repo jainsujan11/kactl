@@ -12,7 +12,6 @@
  * and otherwise lies in $[1, (1 + a/2^64) * b)$.
  */
 #pragma once
-
 typedef unsigned long long ull;
 struct FastMod {
 	ull b, m;

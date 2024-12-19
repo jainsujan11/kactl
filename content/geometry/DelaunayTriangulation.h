@@ -9,10 +9,8 @@
  * Status: stress-tested
  */
 #pragma once
-
 #include "Point.h"
 #include "3dHull.h"
-
 template<class P, class F>
 void delaunay(vector<P>& ps, F trifun) {
 	if (sz(ps) == 3) { int d = (ps[0].cross(ps[1], ps[2]) < 0);

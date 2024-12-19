@@ -8,11 +8,8 @@
  * P is intended to be Point<double>.
  * Status: unit tested
  */
-
 #pragma once
-
 #include "Point.h"
-
 template<class P>
 vector<P> circleLine(P c, double r, P a, P b) {
 	P ab = b - a, p = a + ab * (c-a).dot(ab) / ab.dist2();

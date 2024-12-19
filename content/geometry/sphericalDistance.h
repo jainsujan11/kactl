@@ -12,7 +12,6 @@
  * Status: tested on kattis:airlinehub
  */
 #pragma once
-
 double sphericalDistance(double f1, double t1,
 		double f2, double t2, double radius) {
 	double dx = sin(t2)*cos(f2) - sin(t1)*cos(f1);

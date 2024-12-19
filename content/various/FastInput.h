@@ -9,7 +9,6 @@
  * Status: tested on SPOJ INTEST, unit tested
  */
 #pragma once
-
 inline char gc() { // like getchar()
 	static char buf[1 << 16];
 	static size_t bc, be;
@@ -19,7 +18,6 @@ inline char gc() { // like getchar()
 	}
 	return buf[bc++]; // returns 0 on EOF
 }
-
 int readInt() {
 	int a, c;
 	while ((a = gc()) < 40);

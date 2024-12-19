@@ -3,7 +3,6 @@
  * Description: Segment tree implementation for range minimum query with count
  */
 #pragma once
-
 struct node {
     int mini;
     int ct;

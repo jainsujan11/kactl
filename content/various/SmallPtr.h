@@ -7,9 +7,7 @@
  * Status: tested
  */
 #pragma once
-
 #include "BumpAllocator.h"
-
 template<class T> struct ptr {
 	unsigned ind;
 	ptr(T* p = 0) : ind(p ? unsigned((char*)p - buf) : 0) {

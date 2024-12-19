@@ -8,7 +8,6 @@
  * Status: Tested on SPOJ FASTFLOW and SPOJ MATCHING, stress-tested
  */
 #pragma once
-
 struct Dinic {
 	struct Edge {
 		int to, rev;

@@ -8,10 +8,8 @@
  * Status: stress-tested
  */
 #pragma once
-
 typedef uint64_t ull;
 static int C; // initialized below
-
 // Arithmetic mod two primes and 2^32 simultaneously.
 // "typedef uint64_t H;" instead if Thue-Morse does not apply.
 template<int M, class B>
@@ -26,7 +24,6 @@ struct A {
 	bool operator<(A o) const { return (ull)*this < (ull)o; }
 };
 typedef A<1000000007, A<1000000009, unsigned>> H;
-
 struct HashInterval {
 	vector<H> ha, pw;
 	HashInterval(string& str) : ha(sz(str)+1), pw(ha) {
@@ -39,7 +36,6 @@ struct HashInterval {
 		return ha[b] - ha[a] * pw[b - a];
 	}
 };
-
 vector<H> getHashes(string& str, int length) {
 	if (sz(str) < length) return {};
 	H h = 0, pw = 1;
@@ -51,9 +47,7 @@ vector<H> getHashes(string& str, int length) {
 	}
 	return ret;
 }
-
 H hashString(string& s){H h{}; for(char c:s) h=h*C+c;return h;}
-
 #include <sys/time.h>
 int main() {
 	timeval tp;

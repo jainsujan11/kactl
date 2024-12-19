@@ -9,7 +9,6 @@
  * Status: stress-tested
  */
 #pragma once
-
 struct Tree {
 	typedef int T;
 	static constexpr T unit = INT_MIN;

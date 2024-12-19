@@ -17,9 +17,7 @@ Returns the shortest distance between point p and the line segment from point s 
  * Status: tested
  */
 #pragma once
-
 #include "Point.h"
-
 typedef Point<double> P;
 double segDist(P& s, P& e, P& p) {
 	if (s==e) return (p-s).dist();

@@ -15,9 +15,7 @@
  * Status: not tested
  */
 #pragma once
-
 #include "Point.h"
-
 typedef Point<double> P;
 P linearTransformation(const P& p0, const P& p1,
 		const P& q0, const P& q1, const P& r) {

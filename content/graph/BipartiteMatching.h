@@ -3,19 +3,16 @@
  * Description: bipartite matching
  */
 #pragma once
-
 struct bipartite {
     int n, m;
     vector<vector<int>> g;
     vector<bool> paired;
     vector<int> match;
-
     bipartite(int n, int m): n(n), m(m), g(n), paired(n), match(m, -1) {}
     
     void add(int a, int b) {
         g[a].push_back(b);
     }
-
     vector<size_t> ptr;
     bool kuhn(int v) {
         for(size_t &i = ptr[v]; i < g[v].size(); i++) {
@@ -29,7 +26,6 @@ struct bipartite {
         }
         return false;
     }
-
     vector<int> dist;
     bool bfs() {
         dist.assign(n, n);

@@ -15,9 +15,7 @@
  * implementation that supports `leftOfMinCut` also works.
  */
 #pragma once
-
 #include "PushRelabel.h"
-
 typedef array<ll, 3> Edge;
 vector<Edge> gomoryHu(int N, vector<Edge> ed) {
 	vector<Edge> tree;

@@ -16,7 +16,6 @@
  * Status: stress-tested
  */
 #pragma once
-
 struct SuffixArray {
 	vi sa, lcp;
 	SuffixArray(string& s, int lim=256) { // or basic_string<int>

@@ -2,7 +2,6 @@
  * Author: AlooParatha
  * Description: Centroid Decomposition of a tree
  */
-
 class CentroidDecomposition
 {
     // 1 - based indexing

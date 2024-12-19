@@ -12,7 +12,6 @@
  * Status: stress-tested
  */
 #pragma once
-
 template<class T>
 struct RMQ {
 	vector<vector<T>> jmp;

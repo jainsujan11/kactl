@@ -13,7 +13,6 @@
  * Status: tested
  */
 #pragma once
-
 template<class F>
 int ternSearch(int a, int b, F f) {
 	assert(a <= b);

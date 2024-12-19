@@ -3,7 +3,6 @@
  * Description: UnionFind.h
  */
 #pragma once
-
 struct DSU
 {
 	vi par,size;
@@ -21,4 +20,3 @@ struct DSU
 		}
     }
 };
-

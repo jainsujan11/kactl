@@ -10,7 +10,6 @@
  */
 #pragma once
 #include "Point.h"
-
 typedef Point<ll> P;
 array<P, 2> hullDiameter(vector<P> S) {
 	int n = sz(S), j = n < 2 ? 0 : 1;
