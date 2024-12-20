@@ -7,44 +7,39 @@
  * Status: stress-tested
  */
 #pragma once
-// Arithmetic mod 2^64-1. 2x slower than mod 2^64 and more
-// code, but works on evil test data (e.g. Thue-Morse, where
-// ABBA... and BAAB... of length 2^10 hash the same mod 2^64).
-// "typedef ull H;" instead if you think test data is random,
-// or work mod 10^9+7 if the Birthday paradox is not a problem.
-typedef uint64_t ull;
-struct H {
-	ull x; H(ull x=0) : x(x) {}
-	H operator+(H o) { return x + o.x + (x + o.x < x); }
-	H operator-(H o) { return *this + ~o.x; }
-	H operator*(H o) { auto m = (__uint128_t)x * o.x;
-		return H((ull)m) + (ull)(m >> 64); }
-	ull get() const { return x + !~x; }
-	bool operator==(H o) const { return get() == o.get(); }
-	bool operator<(H o) const { return get() < o.get(); }
-};
-static const H C = (ll)1e11+3; // (order ~ 3e9; random also ok)
-struct HashInterval {
-	vector<H> ha, pw;
-	HashInterval(string& str) : ha(sz(str)+1), pw(ha) {
-		pw[0] = 1;
-		rep(i,0,sz(str))
-			ha[i+1] = ha[i] * C + str[i],
-			pw[i+1] = pw[i] * C;
-	}
-	H hashInterval(int a, int b) { // hash [a, b)
-		return ha[b] - ha[a] * pw[b - a];
-	}
-};
-vector<H> getHashes(string& str, int length) {
-	if (sz(str) < length) return {};
-	H h = 0, pw = 1;
-	rep(i,0,length)
-		h = h * C + str[i], pw = pw * C;
-	vector<H> ret = {h};
-	rep(i,length,sz(str)) {
-		ret.push_back(h = h * C + str[i] - pw * str[i-length]);
-	}
-	return ret;
+//dp[i]=31^i
+//dp2[i]=1/31^i
+int dp[200005],dp2[200005], dp3[200005], dp4[200005];
+// bin_pow
+void calc()
+{
+    dp[0]=1,dp2[0]=1,dp3[0]=1,dp4[0]=1;
+    int t=bp(31,mod-2), t1=bp(97,mod-2);
+    fr(i,1,200005) dp[i]=dp[i-1]*31%mod,dp2[i]=dp2[i-1]*t%mod,dp3[i]=dp3[i-1]*97%mod,dp4[i]=dp4[i-1]*t1%mod;
 }
-H hashString(string& s){H h{}; for(char c:s) h=h*C+c;return h;}
+class String_
+{
+    public:
+    string s;
+    int n;
+    vector<pii> hash, rev_hash;
+    String_(string s)
+    {
+        this->s=s;
+        n=s.size();
+        hash.resize(n+1);
+        rev_hash.resize(n+1);
+        hash[0]={0,0};
+        fr(i,1,n+1) hash[i]={(hash[i-1].ff+((s[i-1]-97) + 1)*dp[i]%mod)%mod, (hash[i-1].ss+((s[i-1]-97) + 1)*dp3[i]%mod)%mod};
+        rev_hash[0]={0,0};
+        fr(i,1,n+1) rev_hash[i]={(rev_hash[i-1].ff+((s[n-i]-97) + 1)*dp[i]%mod)%mod, (rev_hash[i-1].ss+((s[n-i]-97) + 1)*dp3[i]%mod)%mod};
+    }
+    pii get_hash(int l, int r)
+    {
+        return {(hash[r+1].ff-hash[l].ff+mod)%mod*dp2[l]%mod, (hash[r+1].ss-hash[l].ss+mod)%mod*dp4[l]%mod};
+    }
+    pii get_rev_hash(int l, int r)
+    {
+        return {(rev_hash[r+1].ff-rev_hash[l].ff+mod)%mod*dp2[l]%mod, (rev_hash[r+1].ss-rev_hash[l].ss+mod)%mod*dp4[l]%mod};
+    }
+};

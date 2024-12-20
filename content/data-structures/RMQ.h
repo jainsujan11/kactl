@@ -12,19 +12,29 @@
  * Status: stress-tested
  */
 #pragma once
-template<class T>
-struct RMQ {
-	vector<vector<T>> jmp;
-	RMQ(const vector<T>& V) : jmp(1, V) {
-		for (int pw = 1, k = 1; pw * 2 <= sz(V); pw *= 2, ++k) {
-			jmp.emplace_back(sz(V) - pw * 2 + 1);
-			rep(j,0,sz(jmp[k]))
-				jmp[k][j] = min(jmp[k - 1][j], jmp[k - 1][j + pw]);
-		}
-	}
-	T query(int a, int b) {
-		assert(a < b); // or return inf if a == b
-		int dep = 31 - __builtin_clz(b - a);
-		return min(jmp[dep][a], jmp[dep][b - (1 << dep)]);
-	}
+class MaxSparseTable
+{
+public:
+    int n;
+    vector<vector<int>> st;
+    vector<int> log;
+    MaxSparseTable(vector<int> &a)
+    {
+        n = a.size();
+        log.resize(n + 1);
+        log[1] = 0;
+        for (int i = 2; i <= n; i++)
+            log[i] = log[i / 2] + 1;
+        st.assign(n, vector<int>(log[n] + 1));
+        for (int i = 0; i < n; i++)
+            st[i][0] = a[i];
+        for (int j = 1; j <= log[n]; j++)
+            for (int i = 0; i + (1 << j) <= n; i++)
+                st[i][j] = max(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
+    }
+    int query(int l, int r)
+    {
+        int j = log[r - l + 1];
+        return max(st[l][j], st[r - (1 << j) + 1][j]);
+    }
 };
