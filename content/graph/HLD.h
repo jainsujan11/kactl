@@ -12,7 +12,6 @@ public:
  vector<int> parent, depth, heavy, head, pos;
  int cur_pos;
  vector<vector<int>> adj;
- 
  int dfs(int v) {
   int size = 1;
   int max_c_size = 0;
@@ -27,7 +26,6 @@ public:
   }
   return size;
  }
- 
  void decompose(int v, int h) {
   head[v] = h, pos[v] = cur_pos++;
   if (heavy[v] != -1)
@@ -37,13 +35,11 @@ public:
     decompose(c, c);
   }
  }
- 
  void build()
  {
   dfs(0);
   decompose(0, 0);
  }
- 
  HLD(int n) {
   parent = vector<int>(n);
   depth = vector<int>(n);
@@ -53,12 +49,10 @@ public:
   adj = vector<vector<int>>(n);
   cur_pos = 0;
  }
- 
  void add_edge(int u, int v) {
   adj[u].push_back(v);
   adj[v].push_back(u);
  }
- 
  vi query(int a, int b, int x, SegmentTree& st) {
   vi res;
   for (; head[a] != head[b]; b = parent[head[b]]) {

@@ -98,7 +98,6 @@ public:
   tree[now].freq = tree[old].freq;
   tree[now].isEnd = tree[old].isEnd;
   tree[now].freq++;
-  
   tree.push_back(TrieNode());
   tree[now].next[s[i]-baseChar] = tree.size()-1;
   old = tree[old].next[s[i]-baseChar];

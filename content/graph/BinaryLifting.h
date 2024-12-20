@@ -42,7 +42,6 @@ class Binary_lift{
    }
    tout[u] = timer;
   }
- 
   int lift(int u, int k){
    for(int i=l-1;i>=0;i--){
     if(k >= (1<<i)){
@@ -52,7 +51,6 @@ class Binary_lift{
    }
    return u;
   }
- 
   int lca(int u, int v){
    if(depth[u] < depth[v]){
     swap(u,v);
@@ -61,7 +59,6 @@ class Binary_lift{
    if(u == v){
     return u;
    }
- 
    for(int i=l-1;i>=0;i--){
     if(depth[u]<(1<<i))
      continue;

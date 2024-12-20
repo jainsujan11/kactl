@@ -9,7 +9,6 @@ struct bipartite {
  vector<bool> paired;
  vector<int> match;
  bipartite(int n, int m): n(n), m(m), g(n), paired(n), match(m, -1) {}
- 
  void add(int a, int b) {
   g[a].push_back(b);
  }
@@ -22,7 +21,6 @@ struct bipartite {
     paired[v] = true;
     return true;
    }
-   
   }
   return false;
  }
@@ -51,7 +49,6 @@ struct bipartite {
   }
   return rep;
  }
- 
  auto matching() {
   while(bfs()) {
    ptr.assign(n, 0);

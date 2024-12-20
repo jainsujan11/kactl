@@ -10,7 +10,6 @@ private:
  vector<bool> vis;
  vector<int> sz;
  const vector<vector<int>> &tree;
- 
  int find_size(int v, int p = -1)
  {
   if (vis[v])
@@ -21,7 +20,6 @@ private:
     sz[v] += find_size(x, v);
   return sz[v];
  }
- 
  int find_centroid(int v, int p, int cur_sz)
  {
   for (const int &x : tree[v])
@@ -30,7 +28,6 @@ private:
      return find_centroid(x, v, cur_sz);
   return v;
  }
- 
  void init_centroid(int v, int p)
  {
   find_size(v);
@@ -45,7 +42,6 @@ private:
    if (!vis[x])
     init_centroid(x, c);
  }
- 
 public:
  vector<vector<int>> centorid_tree;
  vector<int> centroid_par;

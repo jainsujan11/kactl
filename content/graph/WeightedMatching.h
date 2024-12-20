@@ -17,13 +17,10 @@ typedef long double ld;
 vector<int> hungarian(const vector<vector<ld>>& A, int n) {
  // Labels for workers (u) and jobs (v)
  vector<ld> u(n + 1, 0.0), v(n + 1, 0.0);
- 
  // p[j] - the worker assigned to job j
  vector<int> p(n + 1, 0);
- 
  // way[j] - the previous job in the augmenting path for job j
  vector<int> way(n + 1, 0);
- 
  for(int i = 1; i <= n; ++i){
   p[0] = i;
   int j0 = 0;
@@ -31,14 +28,12 @@ vector<int> hungarian(const vector<vector<ld>>& A, int n) {
   vector<ld> minv(n + 1, inf);
   // used[j] - whether job j is used in the current augmenting path
   vector<bool> used(n + 1, false);
-  
   int j1;
   while(true){
    used[j0] = true;
    int i0 = p[j0];
    ld delta = inf;
    j1 = 0;
-   
    // Iterate over all jobs to find the minimum delta
    for(int j = 1; j <= n; ++j){
     if(!used[j]){
@@ -53,7 +48,6 @@ vector<int> hungarian(const vector<vector<ld>>& A, int n) {
      }
     }
    }
-   
    // Update labels
    for(int j = 0; j <= n; ++j){
     if(used[j]){
@@ -64,12 +58,10 @@ vector<int> hungarian(const vector<vector<ld>>& A, int n) {
      minv[j] -= delta;
     }
    }
-   
    j0 = j1;
    if(p[j0] == 0)
     break;
   }
-  
   // Augmenting path: update the matching
   do{
    int j1 = way[j0];
@@ -77,7 +69,6 @@ vector<int> hungarian(const vector<vector<ld>>& A, int n) {
    j0 = j1;
   } while(j0 != 0);
  }
- 
  // Construct the result: ans[i] = j means worker i is assigned to job j
  vector<int> ans(n, -1);
  for(int j = 1; j <= n; ++j){
@@ -85,6 +76,5 @@ vector<int> hungarian(const vector<vector<ld>>& A, int n) {
    ans[p[j] - 1] = j - 1;
   }
  }
- 
  return ans;
 }
