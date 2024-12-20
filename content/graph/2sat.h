@@ -5,24 +5,19 @@
 class TwoSAT {
 private:
     int n;
-    std::vector<std::vector<int>> adj, adj_t;
-    std::vector<bool> used;
-    std::vector<int> order, comp;
-    std::vector<bool> assignment;
+    vector<vector<int>> adj, adj_t;
+    vector<bool> used, assignment;
+    vector<int> order, comp;
     void dfs1(int v) {
         used[v] = true;
-        for (int u : adj[v]) {
-            if (!used[u])
-                dfs1(u);
-        }
+        for (int u : adj[v])
+            if (!used[u]) dfs1(u);
         order.push_back(v);
     }
     void dfs2(int v, int cl) {
         comp[v] = cl;
-        for (int u : adj_t[v]) {
-            if (comp[u] == -1)
-                dfs2(u, cl);
-        }
+        for (int u : adj_t[v])
+            if (comp[u] == -1) dfs2(u, cl);
     }
 public:
     TwoSAT(int size) : n(size), adj(2 * n), adj_t(2 * n), used(2 * n), comp(2 * n), assignment(n) {}
@@ -30,14 +25,12 @@ public:
         order.clear();
         used.assign(2 * n, false);
         for (int i = 0; i < 2 * n; ++i) {
-            if (!used[i])
-                dfs1(i);
+            if (!used[i]) dfs1(i);
         }
         comp.assign(2 * n, -1);
         for (int i = 0, j = 0; i < 2 * n; ++i) {
             int v = order[2 * n - i - 1];
-            if (comp[v] == -1)
-                dfs2(v, j++);
+            if (comp[v] == -1) dfs2(v, j++);
         }
         assignment.assign(n, false);
         for (int i = 0; i < 2 * n; i += 2) {
@@ -58,7 +51,5 @@ public:
         adj_t[b].push_back(neg_a);
         adj_t[a].push_back(neg_b);
     }
-    std::vector<bool> get_assignment() {
-        return assignment;
-    }
+    vector<bool> get_assignment() { return assignment; }
 };

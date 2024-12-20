@@ -22,14 +22,12 @@ template<class T> struct Matrix {
 		return ret;
 	}
 	M operator^(ll p) const {
-		assert(p >= 0);
 		M a(this->d.size()), b(*this);
         int N = this->d.size();
 		rep(i,0,N) a.d[i][i] = 1;
 		while (p) {
 			if (p&1) a = a*b;
-			b = b*b;
-			p >>= 1;
+			b = b*b; p >>= 1;
 		}
 		return a;
 	}

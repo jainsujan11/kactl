@@ -9,7 +9,7 @@ int bp(int a, int b) {
         a = a * a % mod, b /= 2;
     }
     return res;
-    }
+}
 int fact[MAX], inv_fact[MAX];
 void fact_init() {
     fact[0] = 1;
