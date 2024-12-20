@@ -1,3 +1,8 @@
+"""
+ * Author: AlooParatha
+ * Description: stress testing script for competitive programming
+ """
+
 import random
 import os
 from tqdm import tqdm
