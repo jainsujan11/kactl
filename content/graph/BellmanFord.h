@@ -3,9 +3,7 @@
  * Date: 2015-02-23
  * License: CC0
  * Source: http://en.wikipedia.org/wiki/Bellman-Ford_algorithm
- * Description: Calculates shortest paths from $s$ in a graph that might have negative edge weights.
- * Unreachable nodes get dist = inf; nodes reachable through negative-weight cycles get dist = -inf.
- * Assumes $V^2 \max |w_i| < \tilde{} 2^{63}$.
+ * Description: Calculates shortest paths
  * Time: O(VE)
  * Status: Tested on kattis:shortestpath3
  */
@@ -19,9 +17,8 @@ int bellmanford(int n,int m,int src,int dest,vector<vector<int>> &edges){
             int v = edges[j][1];
             int wt = edges[j][2];
             if(dist[u]!=1e9&&(dist[u]+wt)<dist[v])
-            {
                 dist[v] = (dist[u]+wt);
-            }}}
+                }}
     bool flag = 0;
     for (int j = 0; j < m; j++)
     {
