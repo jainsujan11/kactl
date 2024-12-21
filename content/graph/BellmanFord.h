@@ -10,24 +10,26 @@
  * Status: Tested on kattis:shortestpath3
  */
 #pragma once
-const ll inf = LLONG_MAX;
-struct Ed { int a, b, w, s() { return a < b ? a : -a; }};
-struct Node { ll dist = inf; int prev = -1; };
-void bellmanFord(vector<Node>& nodes, vector<Ed>& eds, int s) {
- nodes[s].dist = 0;
- sort(all(eds), [](Ed a, Ed b) { return a.s() < b.s(); });
- int lim = sz(nodes) / 2 + 2; // /3+100 with shuffled vertices
- rep(i,0,lim) for (Ed ed : eds) {
- Node cur = nodes[ed.a], &dest = nodes[ed.b];
- if (abs(cur.dist) == inf) continue;
- ll d = cur.dist + ed.w;
- if (d < dest.dist) {
-  dest.prev = ed.a;
-  dest.dist = (i < lim-1 ? d : -inf);
- }
- }
- rep(i,0,lim) for (Ed e : eds) {
- if (nodes[e.a].dist == -inf)
-  nodes[e.b].dist = -inf;
- }
+int bellmanford(int n,int m,int src,int dest,vector<vector<int>> &edges){
+    vector<int> dist(n+1,1e9);
+    dist[src] = 0;
+    for (int i = 1; i < n; i++)
+    {for (int j = 0; j < m; j++){
+            int u = edges[j][0];
+            int v = edges[j][1];
+            int wt = edges[j][2];
+            if(dist[u]!=1e9&&(dist[u]+wt)<dist[v])
+            {
+                dist[v] = (dist[u]+wt);
+            }}}
+    bool flag = 0;
+    for (int j = 0; j < m; j++)
+    {
+        int u = edges[j][0];
+        int v = edges[j][1];
+        int wt = edges[j][2];
+        if(dist[u]!=1e9&&(dist[u]+wt)<dist[v]) flag=1;
+    }
+    if(flag==0) return dist[dest];
+    else return -1;
 }
